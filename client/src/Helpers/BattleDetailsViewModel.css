@@ -1,0 +1,19 @@
+.max-hight-card {
+    min-height: 200px;
+}
+
+.modal-header {
+    border: none;
+}
+
+.win {
+    background-color: lightgreen;
+}
+
+.loss {
+    background-color: lightsalmon;
+}
+
+.unknown {
+    background-color: lightgray;
+}
