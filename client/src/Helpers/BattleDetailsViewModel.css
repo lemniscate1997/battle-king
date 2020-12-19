@@ -3,17 +3,17 @@
 }
 
 .modal-header {
-    border: none;
+    border: none !important;
 }
 
 .win {
-    background-color: lightgreen;
+    background-color: lightgreen !important;
 }
 
 .loss {
-    background-color: lightsalmon;
+    background-color: lightsalmon !important;
 }
 
 .unknown {
-    background-color: lightgray;
+    background-color: lightgray !important;
 }

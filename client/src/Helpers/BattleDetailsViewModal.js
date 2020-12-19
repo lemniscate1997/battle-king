@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Card } from 'react-bootstrap';
+import { Modal, Card } from 'react-bootstrap';
 
 import './BattleDetailsViewModel.css';
 
