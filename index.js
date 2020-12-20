@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 3030;
@@ -78,6 +79,16 @@ app.get('/search', async (req, res) => {
     res.json(data);
 });
 
+app.use(express.static(path.join(__dirname,'client','build')));
+
+app.get('/', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client','build','index.html'));
+});
+
+app.use((request, response) => {
+    response.status(404).sendFile(path.join(__dirname,'404.html'));
+});
+  
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 });

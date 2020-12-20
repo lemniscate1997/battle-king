@@ -1,1 +1,1 @@
-export const restURL = (endPoint) => (`http://localhost:3030${endPoint}`);
+export const restURL = (endPoint) => (`${endPoint}`);
