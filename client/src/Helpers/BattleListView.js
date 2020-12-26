@@ -7,6 +7,8 @@ import {
   Toolbar, Typography, Paper, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 
+import './BattleListView.css'
+
 function descendingComparator(a, b, orderBy) {
   return (b[orderBy] < a[orderBy]) ? -1 : (b[orderBy] > a[orderBy]) ? 1 : 0;
 }
@@ -117,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function BattleListView({battles=[], handleClick, locations=[], fetchBattles}) {
-  const rows = battles;
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('name');
@@ -146,25 +147,18 @@ export function BattleListView({battles=[], handleClick, locations=[], fetchBatt
     fetchBattles(location);
   }
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, battles.length - page * rowsPerPage);
 
   return (
     <div className={`my-4 ${classes.root}`}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar locations={locations} handleSearch={handleSearch} />
         <TableContainer className="px-4">
-          <Table
-            className={classes.table}
-            size={'medium'}
-            aria-label="enhanced table">
-            <EnhancedTableHead
-              classes={classes}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length} />
+          <Table className={classes.table} size={'medium'} aria-label="enhanced table">
+            <EnhancedTableHead classes={classes} onRequestSort={handleRequestSort} 
+              order={order} orderBy={orderBy} rowCount={battles.length} />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(battles, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
@@ -191,9 +185,12 @@ export function BattleListView({battles=[], handleClick, locations=[], fetchBatt
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination rowsPerPageOptions={[5, 10, 25]} component="div" className="mr-3 mt-4 pb-1"
-          count={rows.length} rowsPerPage={rowsPerPage} page={page}
-          onChangePage={handleChangePage} onChangeRowsPerPage={handleChangeRowsPerPage} />
+        {
+          emptyRows <= 0 &&
+          <TablePagination rowsPerPageOptions={[5, 10, 25]} component="div" className="mr-3 mt-4 pb-1"
+            count={battles.length} rowsPerPage={rowsPerPage} page={page}
+            onChangePage={handleChangePage} onChangeRowsPerPage={handleChangeRowsPerPage} />
+        }
       </Paper>
     </div>
   );
